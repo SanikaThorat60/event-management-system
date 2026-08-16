@@ -22,7 +22,7 @@ import Toast from "./components/common/Toast";
 import AuthScreen from "./components/auth/AuthScreen";
 import ChatbotWidget from "./components/chat/ChatbotWidget";
 
-const API_BASE = "http://localhost:5000/api";
+import { API_BASE } from "./config";
 
 function App() {
   // Authentication State
@@ -286,7 +286,7 @@ function App() {
           try {
             // Save Payment
             await axios.post(
-              "http://localhost:5000/api/payment/save",
+              `${API_BASE}/payment/save`,
               paymentSuccess
             );
 
@@ -327,7 +327,7 @@ function App() {
             try {
               // Save Payment
               await axios.post(
-                "http://localhost:5000/api/payment/save",
+                `${API_BASE}/payment/save`,
                 paymentSuccess
               );
 

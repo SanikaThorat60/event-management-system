@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import { API_BASE } from "../../config";
 
 const SUGGESTED_QUESTIONS = [
   "What events are available?",
@@ -55,7 +56,7 @@ function ChatbotWidget() {
           text: m.text
         }));
 
-      const res = await axios.post("http://localhost:5000/api/ai/chat", {
+      const res = await axios.post(`${API_BASE}/ai/chat`, {
         message: text,
         history: chatHistory
       });

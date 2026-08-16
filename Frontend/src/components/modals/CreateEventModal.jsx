@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import Modal from "../common/Modal";
+import { API_BASE } from "../../config";
 
 function CreateEventModal({ isOpen, onClose, onCreateEvent }) {
   const [name, setName] = useState("");
@@ -21,7 +22,7 @@ function CreateEventModal({ isOpen, onClose, onCreateEvent }) {
     }
     setIsGenerating(true);
     try {
-      const res = await axios.post("http://localhost:5000/api/ai/generate-description", {
+      const res = await axios.post(`${API_BASE}/ai/generate-description`, {
         name,
         date,
         time,
@@ -61,7 +62,7 @@ function CreateEventModal({ isOpen, onClose, onCreateEvent }) {
       const token = userStr ? JSON.parse(userStr)?.token : null;
       const config = token ? { headers: { Authorization: `Bearer ${token}` } } : {};
 
-      const res = await axios.post("http://localhost:5000/api/ai/generate-image", {
+      const res = await axios.post(`${API_BASE}/ai/generate-image`, {
         name,
         description,
         date,
