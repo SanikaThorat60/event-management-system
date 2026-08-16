@@ -34,6 +34,7 @@ const createOrder = async (req, res) => {
 
 const verifyPayment = (req, res) => {
     const { razorpay_order_id, razorpay_payment_id, razorpay_signature, event_id, amount } = req.body;
+    const email = req.user?.email || null;
     const crypto = require("crypto");
 
     const hmac = crypto.createHmac("sha256", process.env.RAZORPAY_KEY_SECRET);
@@ -41,8 +42,8 @@ const verifyPayment = (req, res) => {
     const generated_signature = hmac.digest("hex");
 
     if (generated_signature === razorpay_signature) {
-        const sql = "INSERT INTO payments (event_id, amount) VALUES (?, ?)";
-        db.query(sql, [event_id, amount], (err, result) => {
+        const sql = "INSERT INTO payments (event_id, amount, email) VALUES (?, ?, ?)";
+        db.query(sql, [event_id, amount, email], (err, result) => {
             if (err) {
                 return res.status(500).json({ error: err.message });
             }
@@ -55,8 +56,9 @@ const verifyPayment = (req, res) => {
 
 const savePayment = (req, res) => {
     const { event_id, amount } = req.body;
-    const sql = "INSERT INTO payments (event_id, amount) VALUES (?, ?)";
-    db.query(sql, [event_id, amount], (err, result) => {
+    const email = req.user?.email || null;
+    const sql = "INSERT INTO payments (event_id, amount, email) VALUES (?, ?, ?)";
+    db.query(sql, [event_id, amount, email], (err, result) => {
         if (err) {
             return res.status(500).json({ error: err.message });
         }
@@ -65,8 +67,18 @@ const savePayment = (req, res) => {
 };
 
 const getPayments = (req, res) => {
-    const sql = "SELECT p.*, e.name as event_name FROM payments p LEFT JOIN events e ON p.event_id = e.id";
-    db.query(sql, (err, result) => {
+    const { role, email } = req.user;
+    let sql;
+    let queryParams = [];
+
+    if (role === "manager") {
+        sql = "SELECT p.*, e.name as event_name FROM payments p LEFT JOIN events e ON p.event_id = e.id";
+    } else {
+        sql = "SELECT p.*, e.name as event_name FROM payments p LEFT JOIN events e ON p.event_id = e.id WHERE p.email = ?";
+        queryParams.push(email);
+    }
+
+    db.query(sql, queryParams, (err, result) => {
         if (err) {
             return res.status(500).json({ error: err.message });
         }

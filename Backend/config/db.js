@@ -92,6 +92,17 @@ db.connect((err) => {
                 console.log("Database Schema: added image_url column to events table");
             }
         });
+
+        // Ensure email column exists in payments table
+        db.query("ALTER TABLE payments ADD COLUMN email VARCHAR(100) DEFAULT NULL", (err) => {
+            if (err) {
+                if (err.code !== 'ER_DUP_FIELDNAME') {
+                    console.error("Error adding email column to payments table:", err);
+                }
+            } else {
+                console.log("Database Schema: added email column to payments table");
+            }
+        });
     }
 });
 
