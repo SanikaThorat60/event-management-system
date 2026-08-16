@@ -1,0 +1,25 @@
+# Dependency directories
+node_modules/
+
+# Build outputs
+dist/
+build/
+out/
+
+# Environment variables & secrets (CRITICAL: Do not commit these files!)
+.env
+.env.local
+.env.*.local
+*.env
+
+# IDE / Editor configuration
+.vscode/
+.idea/
+.gemini/
+.agents/
+*.suo
+*.sw?
+
+# OS metadata
+.DS_Store
+Thumbs.db

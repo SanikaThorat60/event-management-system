@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --body-bg: #030207;
+  --bg-gradient: radial-gradient(circle at top, #161026 0%, #090611 60%, #030207 100%);
+  --panel-bg: rgba(255, 255, 255, 0.03);
+  --panel-border: rgba(255, 255, 255, 0.06);
+  --panel-border-hover: rgba(170, 59, 255, 0.3);
+  --text-primary: #f3f4f6;
+  --text-secondary: #9ca3af;
+  --accent-primary: #aa3bff;
+  --accent-secondary: #8c25e3;
+  --accent-glow: rgba(170, 59, 255, 0.35);
+  --input-bg: rgba(255, 255, 255, 0.04);
+  --input-border: rgba(255, 255, 255, 0.08);
+  --success: #10b981;
+  --success-glow: rgba(16, 185, 129, 0.2);
+  --error: #ef4444;
+  --error-glow: rgba(239, 68, 68, 0.2);
+  --font-sans: 'Outfit', 'Inter', system-ui, sans-serif;
+  --shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.6);
+  --glass-blur: blur(20px);
+  --modal-bg: #0d0a17;
+}
+
+html[data-theme='light'] {
+  --body-bg: #f9f8fc;
+  --bg-gradient: radial-gradient(circle at top, #f6f1ff 0%, #f3effa 60%, #eae5f5 100%);
+  --panel-bg: rgba(255, 255, 255, 0.75);
+  --panel-border: rgba(170, 59, 255, 0.12);
+  --panel-border-hover: rgba(170, 59, 255, 0.4);
+  --text-primary: #1f2937;
+  --text-secondary: #4b5563;
+  --accent-glow: rgba(170, 59, 255, 0.15);
+  --input-bg: rgba(170, 59, 255, 0.03);
+  --input-border: rgba(170, 59, 255, 0.15);
+  --shadow: 0 20px 40px -10px rgba(170, 59, 255, 0.08);
+  --modal-bg: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--body-bg);
+  background-image: var(--bg-gradient);
+  background-attachment: fixed;
+  color: var(--text-primary);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease, background-image 0.3s ease;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(170, 59, 255, 0.4);
+}
+
+a {
+  color: var(--accent-primary);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+a:hover {
+  filter: brightness(1.2);
+}
